@@ -13,7 +13,7 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { githubReposInfiniteQuery } from "@/features/github/lib/repos-query";
+import { githubReposInfiniteQuery } from "@/features/lib/repos-query";
 import { DashboardRepo } from "../lib/types";
 import { statusBadge } from "../lib/status-style";
 import { LockIcon, LockKeyOpenIcon, StarIcon } from "@phosphor-icons/react";

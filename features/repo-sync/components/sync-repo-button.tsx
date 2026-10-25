@@ -2,8 +2,8 @@
 
 import React from 'react'
 import { useMutation , useQueryClient } from '@tanstack/react-query';
-import { githubRepoKeys } from '@/features/github/lib/repos-query';
-import { syncRepoCodebase } from '../actions/repo-sync';
+import { githubRepoKeys } from '@/features/lib/repos-query';
+import { syncRepoCodebase } from '../action/repo-sync';
 import { Button } from '@/components/ui/button';
 import { RepoSyncStatus } from '../types';
 import { toast } from 'sonner';
