@@ -17,10 +17,14 @@ export function getGithubApp(){
     return githubApp;
 }
 
+
 export function getGithubInstallUrl(userId: string) {
-    const url = new URL(`https://github.com/apps/pr-rev-azaz/new`);
-    // `state` round-trips through GitHub so we can link the installation to this user.
-    url.searchParams.set("state", userId);
-    return url.toString();
-  }
-  
+  const url = new URL(
+    "https://github.com/apps/pr-rev-azaz/installations/new"
+  );
+
+  // Preserve the user ID so the installation can be linked to this user.
+  url.searchParams.set("state", userId);
+
+  return url.toString();
+}
