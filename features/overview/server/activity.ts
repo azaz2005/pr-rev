@@ -2,7 +2,6 @@ import type { OverviewActivityItem } from "@/features/overview/types/overview";
 import { getReviewsThisMonth } from "@/features/billing/server/usage";
 import { getUserInstallationId } from "@/features/github/server/installation";
 import { prisma } from "@/lib/db";
- */
 function getActivityStatus(status: string): OverviewActivityItem["status"] {
   if (status === "rate_limited") {
     return "rate_limited";

@@ -1,3 +1,4 @@
+
 import type {
   PullRequestItem,
   PullRequestStatus,
@@ -19,6 +20,21 @@ type PullRequestRecord = {
   createdAt: Date;
 };
 
+function toPullRequestItem(record: PullRequestRecord): PullRequestItem {
+  return {
+    id: record.id,
+    repoFullName: record.repoFullName,
+    prNumber: record.prNumber,
+    title: record.title,
+    authorLogin: record.authorLogin,
+    baseBranch: record.baseBranch,
+    status: record.status as PullRequestStatus,
+    reviewComment: record.reviewComment,
+    reviewedAt: record.reviewedAt?.toISOString() ?? null,
+    createdAt: record.createdAt.toISOString(),
+  };
+}
+
 export async function getPullRequestsByRepo(
   installationId: number
 ): Promise<RepoPullRequests[]> {
@@ -29,11 +45,16 @@ export async function getPullRequestsByRepo(
 
   const groups: RepoPullRequests[] = [];
 
-   for (const record of records) {
-    let group = groups.find((g) => g.repoFullName === record.repoFullName);
+  for (const record of records) {
+    let group = groups.find(
+      (g) => g.repoFullName === record.repoFullName
+    );
 
     if (!group) {
-      group = { repoFullName: record.repoFullName, pullRequests: [] };
+      group = {
+        repoFullName: record.repoFullName,
+        pullRequests: [],
+      };
       groups.push(group);
     }
 
