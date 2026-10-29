@@ -42,7 +42,10 @@ function AccordionTrigger({
       >
         {children}
         <CaretDownIcon data-slot="accordion-trigger-icon" className="pointer-events-none shrink-0 group-aria-expanded/accordion-trigger:hidden" />
-        <CaretUpIcon data-slot="accordion-trigger-icon" className="pointer-events-none hidden shrink-0 group-aria-expanded/accordion-trigger:inline" />
+        <CaretUpIcon
+  data-slot="accordion-trigger-icon"
+  className="pointer-events-none hidden shrink-0 group-aria-expanded/accordion-trigger:inline"
+/>
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
   )

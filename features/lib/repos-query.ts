@@ -1,38 +1,41 @@
-import { DashboardRepo } from "@/features/dashboard/lib/types";
-import { infiniteQueryOptions } from "@tanstack/react-query";
 
+import { infiniteQueryOptions } from "@tanstack/react-query";
+import type { DashboardRepo } from "@/features/dashboard/lib/types";
 
 type GithubReposPage = {
-    repos: DashboardRepo[];
-    totalCount: number;
-    page: number;
-    hasMore: boolean;
+  repos: DashboardRepo[];
+  totalCount: number;
+  page: number;
+  hasMore: boolean;
 };
-
 
 export const githubRepoKeys = {
-    all: ["github", "repos"] as const,
+  all: ["github", "repos"] as const,
 };
 
-const REPOS_STALE_TIME = 10 * 60 * 1000; // 10 minutes
-
-
 export const githubReposInfiniteQuery = infiniteQueryOptions({
-    queryKey: [...githubRepoKeys.all, "list"],
-    queryFn: async ({ pageParam }) => {
-        const response = await fetch(`/api/github/repos?page=${pageParam}`);
+  queryKey: [...githubRepoKeys.all, "list"],
 
-        if (!response.ok) {
-            throw new Error("Failed to load repositories");
-        }
+  initialPageParam: 1,
 
-        return response.json()
-    },
-    initialPageParam: 1,
-    getNextPageParam: (lastPage) => {
-        if (lastPage.hasMore) {
-            return lastPage.page + 1
-        }
-    },
-    staleTime: REPOS_STALE_TIME
-})
+  queryFn: async ({ pageParam }): Promise<GithubReposPage> => {
+    const response = await fetch(
+      `/api/github/repos?page=${pageParam}`,
+      { cache: "no-store" },
+    );
+
+    if (!response.ok) {
+      const body = await response.text();
+      throw new Error(
+        `Repository request failed (${response.status}): ${body}`,
+      );
+    }
+
+    return (await response.json()) as GithubReposPage;
+  },
+
+  getNextPageParam: (lastPage) =>
+    lastPage.hasMore ? lastPage.page + 1 : undefined,
+
+  staleTime: 0,
+});
