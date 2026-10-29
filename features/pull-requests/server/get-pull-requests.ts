@@ -20,10 +20,10 @@ type PullRequestRecord = {
   createdAt: Date;
 };
 
+
 function toPullRequestItem(record: PullRequestRecord): PullRequestItem {
   return {
     id: record.id,
-    repoFullName: record.repoFullName,
     prNumber: record.prNumber,
     title: record.title,
     authorLogin: record.authorLogin,
@@ -34,6 +34,7 @@ function toPullRequestItem(record: PullRequestRecord): PullRequestItem {
     createdAt: record.createdAt.toISOString(),
   };
 }
+
 
 export async function getPullRequestsByRepo(
   installationId: number
