@@ -1,6 +1,8 @@
 import { requireAuth } from "@/features/auth/actions";
 import React from "react";
 
+export const instant = false;
+
 export default async function ProtectedLayout({
   children,
 }: {
