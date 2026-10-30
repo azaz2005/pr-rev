@@ -2,7 +2,7 @@
 import { infiniteQueryOptions } from "@tanstack/react-query";
 import type { DashboardRepo } from "@/features/dashboard/lib/types";
 
-type GithubReposPage = {
+export type GithubReposPage = {
   repos: DashboardRepo[];
   totalCount: number;
   page: number;
@@ -15,7 +15,6 @@ export const githubRepoKeys = {
 
 export const githubReposInfiniteQuery = infiniteQueryOptions({
   queryKey: [...githubRepoKeys.all, "list"],
-
   initialPageParam: 1,
 
   queryFn: async ({ pageParam }): Promise<GithubReposPage> => {
